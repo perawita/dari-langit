@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0b171c;
+  --color-foam: #f3efe6;
+  --color-mist: #93a39e;
+  --color-lagoon: #14b8a6;
+  --color-line: color-mix(in oklab, #f3efe6 16%, transparent);
+  --color-panel: color-mix(in oklab, #0b171c 88%, transparent);
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --radius-card: 1.25rem;
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color: var(--color-foam);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--color-ink);
+    overflow-x: hidden;
+  }
+
+  html.tour-lock,
+  html.tour-lock body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-lagoon);
+    color: var(--color-ink);
+  }
+}
+
+.hud-top {
+  padding-top: calc(1rem + env(safe-area-inset-top));
+}
+
+.story-card {
+  background: var(--color-panel);
+  color: var(--color-foam);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  backdrop-filter: blur(18px);
+  padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
+}
+
+.tour-scroll {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+
+.vignette {
+  background:
+    linear-gradient(to top, color-mix(in oklab, var(--color-ink) 92%, transparent), transparent 46%),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-ink) 62%, transparent), transparent 30%);
+}
+
+@media (min-width: 1024px) {
+  .vignette {
+    background:
+      linear-gradient(to right, color-mix(in oklab, var(--color-ink) 78%, transparent), transparent 46%),
+      linear-gradient(to top, color-mix(in oklab, var(--color-ink) 72%, transparent), transparent 38%),
+      linear-gradient(to bottom, color-mix(in oklab, var(--color-ink) 42%, transparent), transparent 24%);
+  }
+}
+
+.map-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-ink);
+}
+
+.map-stage .maplibregl-canvas-container,
+.map-stage .maplibregl-canvas {
+  pointer-events: none;
+}
+
+.map-stage.is-live,
+.map-stage.is-live .maplibregl-canvas-container,
+.map-stage.is-live .maplibregl-canvas {
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.map-stage.maplibregl-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-ink);
+}
+
+.map-stage .maplibregl-ctrl-logo,
+.map-stage .maplibregl-ctrl-attrib {
+  display: none;
+}
+
+.map-stage .maplibregl-canvas {
+  outline: none;
+}
